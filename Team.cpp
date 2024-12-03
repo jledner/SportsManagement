@@ -21,7 +21,7 @@ Team::Team(const Team& other) {
 }
 
 const Team& Team::operator=(const Team& other) {
-    if (&other != nullptr) {
+    if (&other != this) {
         teamName = other.teamName;
         if (other.headCoach != nullptr) {
             headCoach = new Coach(other.headCoach->getName(), other.headCoach->getSpecialty(), other.headCoach->getExperience());
@@ -93,4 +93,9 @@ void Team::print() {
     cout << "Losses: " << losses << endl;
     cout << "Win Percentage: " << getWinPercentage() << endl;
 }
-// ~Team::Team() {}
+Team::~Team() {
+    if (headCoach != nullptr) {
+        delete headCoach;
+        headCoach = nullptr;
+    }
+}
