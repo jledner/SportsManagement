@@ -63,13 +63,34 @@ void Team::removePlayer(string playerName) {
             for (int j = 1; j < 4; j++) {
                 roster[j] = roster[j + 1];
             }
-            roster[4] = ""; // Clear the last position
+            roster[4] = "";
             playerCount--;
             break;
         }
     }
 }
-void Team::updateRecord(bool won) {}          // true for win, false for loss
-double Team::getWinPercentage() {}
-void Team::print() {}
+void Team::updateRecord(bool won) {
+    if (won)
+        wins++;
+    else
+        losses++;
+}
+double Team::getWinPercentage() {
+    return static_cast<double>(wins) / losses;
+}
+
+void Team::print() {
+    cout << "Team Name: " << teamName << endl;
+    cout << "Head Coach: " << headCoach->getName() << endl;
+    cout << "Equipment: " << endl;
+    gear.print();
+    cout << "Roster: " << endl;
+    for (int i = 0; i < 5; i++) {
+        cout << "     " << roster[i] << endl;
+    }
+    cout << "Player Count: " << playerCount << endl;
+    cout << "Wins: " << wins << endl;
+    cout << "Losses: " << losses << endl;
+    cout << "Win Percentage: " << getWinPercentage() << endl;
+}
 // ~Team::Team() {}
