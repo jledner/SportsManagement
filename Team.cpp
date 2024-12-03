@@ -11,7 +11,7 @@ Team::Team(const Team& other) {
     }
     gear = other.gear;
     if (other.roster != nullptr) {
-        for (int i = 0; i++; i < 5) {
+        for (int i = 0; i < 5; i++) {
             roster[i] = other.roster[i];
         }
     }
@@ -45,3 +45,31 @@ void Team::setCoach(string name, string specialty, int years) {
     }
     headCoach = new Coach(name, specialty, years);
 }
+
+void Team::setEquipment(string type, string brand, int quantity) {
+    gear = Equipment(type, brand, quantity);
+}
+
+bool Team::addPlayer(string playerName) {
+    if (playerCount >= 5) {
+        return false;
+    }
+    roster[playerCount] = playerName;
+    playerCount++;
+}
+void Team::removePlayer(string playerName) {
+    for (int i = 0; i < 5; i++) {
+        if (roster[i] == playerName) {
+            for (int j = 1; j < 4; j++) {
+                roster[j] = roster[j + 1];
+            }
+            roster[4] = ""; // Clear the last position
+            playerCount--;
+            break;
+        }
+    }
+}
+void Team::updateRecord(bool won) {}          // true for win, false for loss
+double Team::getWinPercentage() {}
+void Team::print() {}
+// ~Team::Team() {}
