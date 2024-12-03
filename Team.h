@@ -1,10 +1,11 @@
 #ifndef TEAM_H
 #define TEAM_H
 
-#include "Coach.cpp"
-#include "Equipment.cpp"
+#include "Coach.h"
+#include "Equipment.h"
 #include <iostream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 class Team {
@@ -21,7 +22,7 @@ public:
     Team(string name, Coach* coach, Equipment gear);
     Team(const Team& other);  // Copy constructor
     const Team& operator=(const Team& other);  // Assignment operator
-    
+
     void setCoach(string name, string specialty, int years);
     void setEquipment(string type, string brand, int quantity);
     bool addPlayer(string playerName);    // Returns false if roster is full

@@ -1,6 +1,6 @@
 #include "Team.h"
 
-Team::Team(string name) : teamName(name), headCoach(nullptr), gear(gear), roster(), playerCount(0), wins(0), losses(0) {}
+Team::Team(string name) : teamName(name), headCoach(nullptr), gear(), roster(), playerCount(0), wins(0), losses(0) {}
 
 Team::Team(string name, Coach* coach, Equipment gear) : teamName(name), headCoach(coach), gear(gear), roster(), playerCount(0), wins(0), losses(0) {}
 
@@ -28,7 +28,7 @@ const Team& Team::operator=(const Team& other) {
         }
         gear = other.gear;
         if (other.roster != nullptr) {
-            for (int i = 0; i++; i < 5) {
+            for (int i = 0; i < 5; i++) {
                 roster[i] = other.roster[i];
             }
         }
@@ -56,6 +56,7 @@ bool Team::addPlayer(string playerName) {
     }
     roster[playerCount] = playerName;
     playerCount++;
+    return true;
 }
 void Team::removePlayer(string playerName) {
     for (int i = 0; i < 5; i++) {
@@ -76,7 +77,14 @@ void Team::updateRecord(bool won) {
         losses++;
 }
 double Team::getWinPercentage() {
-    return static_cast<double>(wins) / losses;
+    if (wins + losses == 0) {
+        return 0.0;
+    }
+    else if (losses != 0) {
+        return static_cast<double>(wins) / (wins + losses) * 100;
+    }
+    else
+        return 100;
 }
 
 void Team::print() {
@@ -91,7 +99,7 @@ void Team::print() {
     cout << "Player Count: " << playerCount << endl;
     cout << "Wins: " << wins << endl;
     cout << "Losses: " << losses << endl;
-    cout << "Win Percentage: " << getWinPercentage() << endl;
+    cout << "Win Percentage: " << setprecision(2) << fixed << getWinPercentage() << "%" << endl;
 }
 Team::~Team() {
     if (headCoach != nullptr) {
